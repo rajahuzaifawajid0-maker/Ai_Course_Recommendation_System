@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+         BASIC PAGE SETTINGS
+    ====================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Course Recommendation | Result</title>
+
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+           GLOBAL SETTINGS
+        ====================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f6f8fc;
+
+            color: #172033;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+        .navbar {
+
+            background: white;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            padding:
+                18px 7%;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+
+        .logo span {
+
+            color: #4f46e5;
+        }
+
+
+        .status {
+
+            background: #ecfdf3;
+
+            color: #027a48;
+
+            padding:
+                8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ====================================================== */
+
+        .container {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding:
+                55px 20px;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            background: #eef2ff;
+
+            color: #4f46e5;
+
+            padding:
+                8px 16px;
+
+            border-radius: 30px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
+
+
+        .header h1 {
+
+            font-size: 38px;
+
+            color: #111827;
+
+            margin-bottom: 12px;
+        }
+
+
+        .header p {
+
+            max-width: 700px;
+
+            margin: auto;
+
+            color: #667085;
+
+            line-height: 1.7;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           RESULT CARD
+        ====================================================== */
+
+        .result-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(16, 24, 40, 0.08);
+        }
+
+
+        /* =====================================================
+           RECOMMENDATION BOX
+        ====================================================== */
+
+        .course-box {
+
+            text-align: center;
+
+            background: #eef2ff;
+
+            border-radius: 16px;
+
+            padding: 38px 25px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .course-label {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #667085;
+
+            letter-spacing: 1.2px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .course-name {
+
+            font-size: 36px;
+
+            font-weight: 700;
+
+            color: #4f46e5;
+
+            margin-bottom: 14px;
+        }
+
+
+        .course-description {
+
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ====================================================== */
+
+        .section-title {
+
+            font-size: 20px;
+
+            color: #111827;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           STUDENT PROFILE
+        ====================================================== */
+
+        .profile-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .profile-item {
+
+            background: #f8fafc;
+
+            border:
+                1px solid #eaecf0;
+
+            border-radius: 11px;
+
+            padding: 16px;
+        }
+
+
+        .profile-label {
+
+            display: block;
+
+            font-size: 12px;
+
+            color: #667085;
+
+            margin-bottom: 6px;
+        }
+
+
+        .profile-value {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #101828;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           COURSE INFORMATION
+        ====================================================== */
+
+        .course-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-top: 5px;
+        }
+
+
+        .info-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            transition: 0.2s;
+        }
+
+
+        .info-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(16, 24, 40, 0.07);
+        }
+
+
+        .info-card h3 {
+
+            font-size: 16px;
+
+            color: #111827;
+
+            margin-bottom: 9px;
+        }
+
+
+        .info-card p {
+
+            font-size: 13px;
+
+            color: #667085;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           ACTION BUTTON
+        ====================================================== */
+
+        .button-area {
+
+            text-align: center;
+
+            margin-top: 35px;
+        }
+
+
+        .back-button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #4f46e5;
+
+            color: white;
+
+            padding:
+                13px 26px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .back-button:hover {
+
+            background: #4338ca;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .footer {
+
+            text-align: center;
+
+            color: #98a2b3;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            padding:
+                30px 20px;
+        }
+
+
+        .prepared-by {
+
+            margin-top: 7px;
+
+            color: #667085;
+        }
+
+
+        .prepared-by strong {
+
+            color: #4f46e5;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+        ====================================================== */
+
+        @media (max-width: 800px) {
+
+            .profile-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .course-info {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .course-name {
+
+                font-size: 30px;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .navbar {
+
+                padding:
+                    16px 20px;
+            }
+
+
+            .status {
+
+                display: none;
+            }
+
+
+            .container {
+
+                padding:
+                    35px 15px;
+            }
+
+
+            .result-card {
+
+                padding: 22px;
+            }
+
+
+            .profile-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .header h1 {
+
+                font-size: 29px;
+            }
+
+
+            .course-name {
+
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            AI<span>Course</span> Advisor
+
+        </div>
+
+
+        <div class="status">
+
+            ✓ Recommendation Ready
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <section class="header">
+
+            <div class="badge">
+
+                AI-Powered Recommendation
+
+            </div>
+
+
+            <h1>
+
+                Your Course Recommendation
+
+            </h1>
+
+
+            <p>
+
+                Our Machine Learning model analyzed
+                the student's academic background,
+                technical skills, interests and
+                career goals.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESULT CARD
+        ================================================== -->
+
+        <section class="result-card">
+
+
+            <!-- =================================================
+                 RECOMMENDED COURSE
+            ================================================== -->
+
+            <div class="course-box">
+
+                <div class="course-label">
+
+                    RECOMMENDED COURSE
+
+                </div>
+
+
+                <!--
+
+                    Flask automatically sends
+                    the predicted course here.
+
+                    Example:
+
+                    Advanced AI
+                    Generative AI
+                    AI Automation
+
+                -->
+
+                <div class="course-name">
+
+                    {{ course }}
+
+                </div>
+
+
+                <p class="course-description">
+
+                    This recommendation was generated
+                    by the trained Random Forest
+                    Machine Learning model based on
+                    the submitted student profile.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STUDENT PROFILE
+            ================================================== -->
+
+            <h2 class="section-title">
+
+                Student Profile
+
+            </h2>
+
+
+            <div class="profile-grid">
+
+
+                <!-- NAME -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Student Name
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ name }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- AGE -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Age
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ age }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- EDUCATION -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Education
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ education }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- PERCENTAGE -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Academic Percentage
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ percentage }}%
+
+                    </span>
+
+                </div>
+
+
+                <!-- PYTHON -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Python Level
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ python_level }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- PROGRAMMING -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Programming Level
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ programming_level }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- MATH -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Mathematics Level
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ math_level }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- AI -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        AI Knowledge
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ ai_knowledge }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- INTEREST -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Area of Interest
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ interest }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- CAREER -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+
+                        Career Goal
+
+                    </span>
+
+
+                    <span class="profile-value">
+
+                        {{ career_goal }}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 AVAILABLE COURSES
+            ================================================== -->
+
+            <h2 class="section-title">
+
+                Our AI Courses
+
+            </h2>
+
+
+            <div class="course-info">
+
+
+                <!-- ADVANCED AI -->
+
+                <div class="info-card">
+
+                    <h3>
+
+                        Advanced AI
+
+                    </h3>
+
+
+                    <p>
+
+                        Designed for students who want
+                        to develop advanced Artificial
+                        Intelligence and Machine Learning
+                        skills.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- GENERATIVE AI -->
+
+                <div class="info-card">
+
+                    <h3>
+
+                        Generative AI
+
+                    </h3>
+
+
+                    <p>
+
+                        Focuses on modern generative
+                        models and AI systems used for
+                        intelligent content generation
+                        and applications.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- AI AUTOMATION -->
+
+                <div class="info-card">
+
+                    <h3>
+
+                        AI Automation
+
+                    </h3>
+
+
+                    <p>
+
+                        Focuses on Artificial Intelligence
+                        based automation, workflows and
+                        intelligent business processes.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BACK BUTTON
+            ================================================== -->
+
+            <div class="button-area">
+
+                <a
+                    href="/"
+                    class="back-button"
+                >
+
+                    ← Try Another Student
+
+                </a>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div>
+
+            © 2026 AI Course Advisor
+            •
+            Machine Learning Recommendation System
+
+        </div>
+
+
+        <div class="prepared-by">
+
+            Prepared by
+
+            <strong>
+
+                Raja Huzaifa Wajid
+
+            </strong>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

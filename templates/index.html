@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+         BASIC SETTINGS
+    ===================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Course Advisor | Smart Course Recommendation</title>
+
+
+    <!-- =====================================================
+         PROFESSIONAL CSS
+    ===================================================== -->
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f8fc;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+
+        .nav-badge {
+            background: #eef2ff;
+            color: #4f46e5;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .main {
+            width: 100%;
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding: 55px 20px;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+
+        .hero-badge {
+            display: inline-block;
+
+            background: #eef2ff;
+            color: #4f46e5;
+
+            padding: 8px 15px;
+
+            border-radius: 30px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
+
+
+        .hero h1 {
+            font-size: 42px;
+
+            line-height: 1.2;
+
+            color: #111827;
+
+            margin-bottom: 15px;
+        }
+
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+
+        .hero p {
+            max-width: 680px;
+
+            margin: auto;
+
+            color: #667085;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+
+        /* ================= FORM CARD ================= */
+
+        .form-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(16, 24, 40, 0.08);
+        }
+
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+
+        .form-header h2 {
+            font-size: 24px;
+
+            color: #111827;
+
+            margin-bottom: 7px;
+        }
+
+
+        .form-header p {
+            color: #667085;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= FORM GRID ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 22px;
+        }
+
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        /* ================= LABEL ================= */
+
+        label {
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #344054;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* ================= INPUT / SELECT ================= */
+
+        input,
+        select {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 14px;
+
+            border: 1px solid #d0d5dd;
+
+            border-radius: 9px;
+
+            background: white;
+
+            color: #101828;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        input::placeholder {
+            color: #98a2b3;
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #4f46e5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(79, 70, 229, 0.10);
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .button-container {
+
+            grid-column: 1 / -1;
+
+            margin-top: 10px;
+        }
+
+
+        .submit-btn {
+
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .submit-btn:hover {
+
+            background: #4338ca;
+
+            transform: translateY(-1px);
+        }
+
+
+        .submit-btn:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* ================= INFO CARDS ================= */
+
+        .info-section {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 25px;
+        }
+
+
+        .info-card {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 22px;
+        }
+
+
+        .info-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            background: #eef2ff;
+
+            color: #4f46e5;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+            margin-bottom: 14px;
+        }
+
+
+        .info-card h3 {
+
+            font-size: 16px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .info-card p {
+
+            color: #667085;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            color: #98a2b3;
+
+            font-size: 13px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .info-section {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .navbar {
+
+                padding: 16px 20px;
+            }
+
+
+            .form-card {
+
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVIGATION BAR
+    ===================================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            AI<span>Course</span> Advisor
+        </div>
+
+
+        <div class="nav-badge">
+            AI Powered
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             HERO SECTION
+        ================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                Smart Course Recommendation System
+            </div>
+
+
+            <h1>
+
+                Find the Right
+                <span>AI Course</span>
+                for You
+
+            </h1>
+
+
+            <p>
+
+                Enter your academic background,
+                technical skills, interests and
+                career goals. Our machine learning
+                system will recommend the most
+                suitable AI course for you.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FORM CARD
+        ================================================= -->
+
+        <section class="form-card">
+
+
+            <div class="form-header">
+
+                <h2>
+                    Student Information
+                </h2>
+
+
+                <p>
+                    Provide accurate information
+                    for a better course recommendation.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORM
+
+                 Data /predict route par jayega.
+            ================================================= -->
+
+            <form
+                action="/predict"
+                method="POST"
+            >
+
+                <div class="form-grid">
+
+
+                    <!-- =====================================
+                         1. NAME
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         2. AGE
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="age">
+                            Age
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            placeholder="Enter your age"
+                            min="10"
+                            max="100"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         3. EDUCATION
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="education">
+                            Education Level
+                        </label>
+
+
+                        <select
+                            id="education"
+                            name="education"
+                            required
+                        >
+
+                            <option value="">
+                                Select education level
+                            </option>
+
+
+                            <option value="Matric">
+                                Matric
+                            </option>
+
+
+                            <option value="FSC">
+                                FSC
+                            </option>
+
+
+                            <option value="Bachelor's">
+                                Bachelor's
+                            </option>
+
+
+                            <option value="Master's">
+                                Master's
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         4. PERCENTAGE
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="percentage">
+                            Academic Percentage
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="percentage"
+                            name="percentage"
+                            placeholder="e.g. 85"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         5. PYTHON LEVEL
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="python_level">
+                            Python Level
+                        </label>
+
+
+                        <select
+                            id="python_level"
+                            name="python_level"
+                            required
+                        >
+
+                            <option value="">
+                                Select Python Level
+                            </option>
+
+
+                            <option value="Beginner">
+                                Beginner
+                            </option>
+
+
+                            <option value="Intermediate">
+                                Intermediate
+                            </option>
+
+
+                            <option value="Advanced">
+                                Advanced
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         6. PROGRAMMING LEVEL
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="programming_level">
+                            Programming Level
+                        </label>
+
+
+                        <select
+                            id="programming_level"
+                            name="programming_level"
+                            required
+                        >
+
+                            <option value="">
+                                Select Programming Level
+                            </option>
+
+
+                            <option value="Beginner">
+                                Beginner
+                            </option>
+
+
+                            <option value="Intermediate">
+                                Intermediate
+                            </option>
+
+
+                            <option value="Advanced">
+                                Advanced
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         7. MATH LEVEL
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="math_level">
+                            Mathematics Level
+                        </label>
+
+
+                        <select
+                            id="math_level"
+                            name="math_level"
+                            required
+                        >
+
+                            <option value="">
+                                Select Mathematics Level
+                            </option>
+
+
+                            <option value="Beginner">
+                                Beginner
+                            </option>
+
+
+                            <option value="Intermediate">
+                                Intermediate
+                            </option>
+
+
+                            <option value="Advanced">
+                                Advanced
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         8. AI KNOWLEDGE
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="ai_knowledge">
+                            AI Knowledge
+                        </label>
+
+
+                        <select
+                            id="ai_knowledge"
+                            name="ai_knowledge"
+                            required
+                        >
+
+                            <option value="">
+                                Select AI Knowledge
+                            </option>
+
+
+                            <option value="Beginner">
+                                Beginner
+                            </option>
+
+
+                            <option value="Intermediate">
+                                Intermediate
+                            </option>
+
+
+                            <option value="Advanced">
+                                Advanced
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         9. INTEREST
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="interest">
+                            Area of Interest
+                        </label>
+
+
+                        <select
+                            id="interest"
+                            name="interest"
+                            required
+                        >
+
+                            <option value="">
+                                Select your interest
+                            </option>
+
+
+                            <option value="NLP">
+                                Natural Language Processing
+                            </option>
+
+
+                            <option value="Computer Vision">
+                                Computer Vision
+                            </option>
+
+
+                            <option value="Automation">
+                                Automation
+                            </option>
+
+
+                            <option value="Generative AI">
+                                Generative AI
+                            </option>
+
+
+                            <option value="Machine Learning">
+                                Machine Learning
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         10. CAREER GOAL
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="career_goal">
+                            Career Goal
+                        </label>
+
+
+                        <select
+                            id="career_goal"
+                            name="career_goal"
+                            required
+                        >
+
+                            <option value="">
+                                Select your career goal
+                            </option>
+
+
+                            <option value="AI Researcher">
+                                AI Researcher
+                            </option>
+
+
+                            <option value="AI Engineer">
+                                AI Engineer
+                            </option>
+
+
+                            <option value="Automation Engineer">
+                                Automation Engineer
+                            </option>
+
+
+                            <option value="Generative AI Developer">
+                                Generative AI Developer
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         SUBMIT BUTTON
+                    ====================================== -->
+
+                    <div class="button-container">
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                        >
+
+                            Get My Course Recommendation
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             INFORMATION CARDS
+        ================================================= -->
+
+        <section class="info-section">
+
+
+            <!-- CARD 1 -->
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    AI
+                </div>
+
+
+                <h3>
+                    AI Powered
+                </h3>
+
+
+                <p>
+                    Your information is processed
+                    using a trained machine learning
+                    model to recommend a suitable
+                    AI course.
+                </p>
+
+            </div>
+
+
+
+            <!-- CARD 2 -->
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    ML
+                </div>
+
+
+                <h3>
+                    Personalized
+                </h3>
+
+
+                <p>
+                    The recommendation considers
+                    your education, skills,
+                    interests and career goals.
+                </p>
+
+            </div>
+
+
+
+            <!-- CARD 3 -->
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    ✓
+                </div>
+
+
+                <h3>
+                    Simple & Fast
+                </h3>
+
+
+                <p>
+                    Complete the form and get a
+                    personalized course recommendation
+                    in seconds.
+                </p>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer class="footer">
+
+        © 2026 AI Course Advisor
+        • Intelligent Course Recommendation System
+
+    </footer>
+
+
+</body>
+
+</html>
